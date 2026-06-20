@@ -45,6 +45,7 @@ else
  DIRTY_BACKGROUND=10
  DIRTY_RATIO=20
 fi
+BACKLOG_QUEUE=$((CONN_QUEUE / 2))
 cp /etc/sysctl.conf /etc/sysctl.conf.bak.$(date +%F_%T)
 echo "💾 原配置已安全备份。"
 printf "# =================================================================
@@ -65,7 +66,7 @@ net.ipv4.tcp_congestion_control = bbr
 net.ipv4.tcp_fastopen = 3
 # =================================================================
 # 3. 动态网络缓冲区调整
-# =================================================================
+ =================================================================
 net.core.rmem_max = ${MAX_BUF}
 net.core.wmem_max = ${MAX_BUF}
 net.ipv4.tcp_rmem = 4096 ${DEF_BUF} ${MAX_BUF}
@@ -85,8 +86,8 @@ net.ipv4.tcp_syn_retries = 2
 net.ipv4.tcp_synack_retries = 2
 net.ipv4.tcp_retries2 = 8
 net.core.somaxconn = ${CONN_QUEUE}
-net.ipv4.tcp_max_syn_backlog = \$((CONN_QUEUE / 2))
-net.core.netdev_max_backlog = \$((CONN_QUEUE / 2))
+net.ipv4.tcp_max_syn_backlog = ${BACKLOG_QUEUE}
+net.core.netdev_max_backlog = ${BACKLOG_QUEUE}
 net.ipv4.ip_local_port_range = 1024 65535
 net.ipv4.tcp_syncookies = 1
 " > /etc/sysctl.conf
