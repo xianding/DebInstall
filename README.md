@@ -11,7 +11,7 @@ sudo bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/
 ```bash
 sudo bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads/main/deb_dns_not_ipv6.sh)
 ```
-#webdav 一键安装
+#sysctl 一键优化
 ```bash
-sudo bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads/main/webdav_install.sh)
+sudo bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads/main/sysctl_auto.sh)
 ```
