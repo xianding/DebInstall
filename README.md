@@ -15,3 +15,8 @@ bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads/main/sysctl_auto.sh)
 ```
+
+#设置或修改swap
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/xianding/DebInstall/refs/heads/main/set_swap.sh)
+```
