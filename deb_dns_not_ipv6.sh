@@ -29,11 +29,16 @@ sysctl --system >/dev/null 2>&1
 
 # 修改 GRUB 引导参数以防重启后死灰复燃
 if [ -f /etc/default/grub ]; then
-    # 检查是否已经包含该参数，没有则添加
+    # 检查是否已经包含该参数
     if ! grep -q "ipv6.disable=1" /etc/default/grub; then
-        sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="/GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 /' /etc/default/grub
+        # 无论原本是用单引号、双引号，还是末尾有其他参数，都安全地追加到末尾
+        sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/s/["'\'']$/ ipv6.disable=1"/' /etc/default/grub
+        sed -i 's/"" ipv6.disable=1"/ "ipv6.disable=1"/' /etc/default/grub
+        # 更新 GRUB 引导
         update-grub >/dev/null 2>&1
         echo "   [✓] GRUB 引导参数已更新 (ipv6.disable=1)"
+    else
+        echo "   [-] GRUB 引导参数已存在，无需重复添加"
     fi
 fi
 
@@ -62,8 +67,8 @@ domain-needed
 filter-AAAA
 
 # 纯 IPv4 优质公网全网加速上游 DNS
-server=1.1.1.1
 server=8.8.8.8
+server=1.1.1.1
 EOF
 
 # 重启 dnsmasq 服务
